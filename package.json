@@ -7,12 +7,11 @@
     "cors": "^2.8.5",
     "express": "4.17.1",
     "path": "^0.12.7",
+    "socket.io": "2.2.0",
     "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "node server.js",
     "build": "cd client && yarn install && yarn build"
   }
-
-  
 }
