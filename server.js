@@ -33,7 +33,14 @@ app.use((req, res) => {
 })
 
 // connects our backend code with the database
-mongoose.connect('mongodb+srv://Mariusz-B86:12345@cluster0.hxa58cq.mongodb.net/NewWaveDB', { useNewUrlParser: true, useUnifiedTopology: true  });
+const NODE_ENV = process.env.NODE_ENV;
+let dbUri = '';
+
+if(NODE_ENV === 'production') dbUri = 'mongodb+srv://Mariusz-B86:12345@cluster0.hxa58cq.mongodb.net/NewWaveDB';
+else if(NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest';
+else dbUri = 'mongodb://localhost:27017/NewWaveDB';
+
+mongoose.connect(dbUri, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once('open', () => {
@@ -51,3 +58,4 @@ io.on('connection', (socket) => {
   console.log('New socket!');
 });
 
+module.exports = server;
